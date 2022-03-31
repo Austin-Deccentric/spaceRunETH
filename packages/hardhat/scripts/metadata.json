@@ -1,0 +1,75 @@
+[
+    {
+        "description": "This Bohemian is your proof of membership to the galleries of Bohemia. Wander through Bohemia and discover the wonders of art.",
+        "image": "https://arweave.net/B6uR2EknwgrVJIHjB9XC4RZgNRUuyu-jGZK2Q8YQUKY?ext=png",
+        "name": "Bohemian #354",
+        "attributes": [
+            {
+            "trait_type": "background",
+            "value": "Sunset"
+            },
+            {
+            "trait_type": "bohemian",
+            "value": "Genie"
+            },
+            {
+            "trait_type": "head",
+            "value": "Chillers Bun"
+            },
+            {
+            "trait_type": "body",
+            "value": "Apocalypto"
+            },
+            {
+            "trait_type": "glasses",
+            "value": "Hofman's Glasses"
+            },
+            {
+            "trait_type": "face",
+            "value": "Ragnar Beard"
+            },
+            {
+            "trait_type": "mouth",
+            "value": "Nonsmoker"
+            }
+        ]
+    },
+    {
+        "description": "This Bohemian is your proof of membership to the galleries of Bohemia. Wander through Bohemia and discover the wonders of art.",
+        "image": "https://arweave.net/-7zZXLiNfdG1s62oZe4oPdlZkAh2LPquBbydqvl00-c?ext=png",
+        "name": "Bohemian #1350",
+        "attributes": [
+            {
+            "trait_type": "background",
+            "value": "Sunset"
+            },
+            {
+            "trait_type": "bohemian",
+            "value": "Genie"
+            },
+            {
+            "trait_type": "head",
+            "value": "Chillers Bun"
+            },
+            {
+            "trait_type": "body",
+            "value": "Apocalypto"
+            },
+            {
+            "trait_type": "glasses",
+            "value": "Hofman's Glasses"
+            },
+            {
+            "trait_type": "face",
+            "value": "Ragnar Beard"
+            },
+            {
+            "trait_type": "mouth",
+            "value": "Nonsmoker"
+            }
+        ]
+    },
+    {
+
+    }
+]
