@@ -27,7 +27,7 @@ describe("🚩 Challenge 0: 🎟 Simple NFT Example 🤓", function () {
     if (process.env.CONTRACT_ADDRESS) {
       it("Should connect to external contract", async function () {
         myContract = await ethers.getContractAt(
-          "YourCollectible",
+          "Bohemia",
           process.env.CONTRACT_ADDRESS
         );
         console.log(
@@ -38,7 +38,7 @@ describe("🚩 Challenge 0: 🎟 Simple NFT Example 🤓", function () {
     } else {
       it("Should deploy YourCollectible", async function () {
         const YourCollectible = await ethers.getContractFactory(
-          "YourCollectible"
+          "Bohemia"
         );
         myContract = await YourCollectible.deploy();
       });
@@ -56,7 +56,7 @@ describe("🚩 Challenge 0: 🎟 Simple NFT Example 🤓", function () {
         console.log("\t", " 🔨 Minting...");
         const mintResult = await myContract.mintItem(
           owner.address,
-          "QmfVMAmNM1kDEBYrC2TPzQDoCRFH6F5tE1e9Mr4FkkR5Xr"
+          "QmQpYbDESaoFWocyLP4A6hLHGNG2eMyqQ59v9yp1g3h5Gk"
         );
         console.log("\t", " 🏷  mint tx: ", mintResult.hash);
 
