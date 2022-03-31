@@ -63,20 +63,39 @@ const NETWORKCHECK = true;
 
 // EXAMPLE STARTING JSON:
 const STARTING_JSON = {
-  description: "It's actually a bison?",
-  external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-  image: "https://austingriffith.com/images/paintings/buffalo.jpg",
-  name: "Buffalo",
+  description: "This Bohemian is your proof of membership to the galleries of Bohemia. Wander through Bohemia and discover the wonders of art.",
+  image: "https://arweave.net/B6uR2EknwgrVJIHjB9XC4RZgNRUuyu-jGZK2Q8YQUKY?ext=png",
+  name: "Bohemian #354",
   attributes: [
-    {
-      trait_type: "BackgroundColor",
-      value: "green",
-    },
-    {
-      trait_type: "Eyes",
-      value: "googly",
-    },
-  ],
+      {
+      "trait_type": "background",
+      "value": "Sunset"
+      },
+      {
+      "trait_type": "bohemian",
+      "value": "Genie"
+      },
+      {
+      "trait_type": "head",
+      "value": "Chillers Bun"
+      },
+      {
+      "trait_type": "body",
+      "value": "Apocalypto"
+      },
+      {
+      "trait_type": "glasses",
+      "value": "Hofman's Glasses"
+      },
+      {
+      "trait_type": "face",
+      "value": "Ragnar Beard"
+      },
+      {
+      "trait_type": "mouth",
+      "value": "Nonsmoker"
+      }
+  ]
 };
 
 // helper function to "Get" from IPFS
@@ -271,11 +290,11 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const balance = useContractReader(readContracts, "YourCollectible", "balanceOf", [address]);
+  const balance = useContractReader(readContracts, "Bohemia", "balanceOf", [address]);
   console.log("🤗 balance:", balance);
 
   // 📟 Listen for broadcast events
-  const transferEvents = useEventListener(readContracts, "YourCollectible", "Transfer", localProvider, 1);
+  const transferEvents = useEventListener(readContracts, "Bohemia", "Transfer", localProvider, 1);
   console.log("📟 Transfer events:", transferEvents);
 
   //
@@ -290,9 +309,9 @@ function App(props) {
       for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
         try {
           console.log("GEtting token index", tokenIndex);
-          const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
+          const tokenId = await readContracts.Bohemia.tokenOfOwnerByIndex(address, tokenIndex);
           console.log("tokenId", tokenId);
-          const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
+          const tokenURI = await readContracts.Bohemia.tokenURI(tokenId);
           console.log("tokenURI", tokenURI);
 
           const ipfsHash = tokenURI.replace("https://ipfs.io/ipfs/", "");
@@ -519,125 +538,75 @@ function App(props) {
   // the json for the nfts
   const json = {
     1: {
-      description: "It's actually a bison?",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/buffalo.jpg",
-      name: "Buffalo",
+      description: "This Bohemian is your proof of membership to the galleries of Bohemia. Wander through Bohemia and discover the wonders of art.",
+      image: "https://arweave.net/B6uR2EknwgrVJIHjB9XC4RZgNRUuyu-jGZK2Q8YQUKY?ext=png",
+      name: "Bohemian #354",
       attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "green",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 42,
-        },
-      ],
+          {
+          "trait_type": "background",
+          "value": "Sunset"
+          },
+          {
+          "trait_type": "bohemian",
+          "value": "Genie"
+          },
+          {
+          "trait_type": "head",
+          "value": "Chillers Bun"
+          },
+          {
+          "trait_type": "body",
+          "value": "Apocalypto"
+          },
+          {
+          "trait_type": "glasses",
+          "value": "Hofman's Glasses"
+          },
+          {
+          "trait_type": "face",
+          "value": "Ragnar Beard"
+          },
+          {
+          "trait_type": "mouth",
+          "value": "Nonsmoker"
+          }
+      ]
     },
     2: {
-      description: "What is it so worried about?",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/zebra.jpg",
-      name: "Zebra",
-      attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "blue",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 38,
-        },
-      ],
-    },
-    3: {
-      description: "What a horn!",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/rhino.jpg",
-      name: "Rhino",
-      attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "pink",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 22,
-        },
-      ],
-    },
-    4: {
-      description: "Is that an underbyte?",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/fish.jpg",
-      name: "Fish",
-      attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "blue",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 15,
-        },
-      ],
-    },
-    5: {
-      description: "So delicate.",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/flamingo.jpg",
-      name: "Flamingo",
-      attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "black",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 6,
-        },
-      ],
-    },
-    6: {
-      description: "Raaaar!",
-      external_url: "https://austingriffith.com/portfolio/paintings/", // <-- this can link to a page for the specific file too
-      image: "https://austingriffith.com/images/paintings/godzilla.jpg",
-      name: "Godzilla",
-      attributes: [
-        {
-          trait_type: "BackgroundColor",
-          value: "orange",
-        },
-        {
-          trait_type: "Eyes",
-          value: "googly",
-        },
-        {
-          trait_type: "Stamina",
-          value: 99,
-        },
-      ],
-    },
+      description: "This Bohemian is your proof of membership to the galleries of Bohemia. Wander through Bohemia and discover the wonders of art.",
+        image: "https://arweave.net/-7zZXLiNfdG1s62oZe4oPdlZkAh2LPquBbydqvl00-c?ext=png",
+        name: "Bohemian #1350",
+        attributes: [
+            {
+            "trait_type": "background",
+            "value": "Sunset"
+            },
+            {
+            "trait_type": "bohemian",
+            "value": "Genie"
+            },
+            {
+            "trait_type": "head",
+            "value": "Chillers Bun"
+            },
+            {
+            "trait_type": "body",
+            "value": "Apocalypto"
+            },
+            {
+            "trait_type": "glasses",
+            "value": "Hofman's Glasses"
+            },
+            {
+            "trait_type": "face",
+            "value": "Ragnar Beard"
+            },
+            {
+            "trait_type": "mouth",
+            "value": "Nonsmoker"
+            }
+        ]
+    }
   };
 
   const mintItem = async () => {
@@ -647,8 +616,8 @@ function App(props) {
     console.log("Uploaded Hash: ", uploaded);
     const result = tx(
       writeContracts &&
-        writeContracts.YourCollectible &&
-        writeContracts.YourCollectible.mintItem(address, uploaded.path),
+        writeContracts.Bohemia &&
+        writeContracts.Bohemia.mintItem(address, uploaded.path),
       update => {
         console.log("📡 Transaction Update:", update);
         if (update && (update.status === "confirmed" || update.status === 1)) {
@@ -781,7 +750,7 @@ function App(props) {
                         <Button
                           onClick={() => {
                             console.log("writeContracts", writeContracts);
-                            tx(writeContracts.YourCollectible.transferFrom(address, transferToAddresses[id], id));
+                            tx(writeContracts.Bohemia.transferFrom(address, transferToAddresses[id], id));
                           }}
                         >
                           Transfer
@@ -888,7 +857,7 @@ function App(props) {
           </Route>
           <Route path="/debugcontracts">
             <Contract
-              name="YourCollectible"
+              name="Bohemia"
               signer={userSigner}
               provider={localProvider}
               address={address}
