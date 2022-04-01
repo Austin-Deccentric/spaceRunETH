@@ -8,7 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const chainId = await getChainId();
 
   const exampleExternalContract = await deployments.get(
-    "ExampleExternalContract"
+    "withdrawContract"
   );
 
   await deploy("Staker", {
