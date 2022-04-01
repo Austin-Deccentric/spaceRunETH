@@ -26,7 +26,7 @@ describe("🚩 Challenge 2: 🏵 Token Vendor 🤖", function () {
   if(process.env.CONTRACT_ADDRESS){
     // live contracts, token already deployed
   }else{
-    it("Should deploy YourToken", async function () {
+    it("Should deploy atadiaToken", async function () {
       const YourToken = await ethers.getContractFactory("atadiaToken");
       yourToken = await YourToken.deploy();
     });
@@ -61,7 +61,7 @@ describe("🚩 Challenge 2: 🏵 Token Vendor 🤖", function () {
       console.log(`\t`,"🛰 Connected to YourToken at:",yourToken.address)
     });
   }else{
-    it("Should deploy atadiaToken", async function () {
+    it("Should deploy Vendor contract", async function () {
       const Vendor = await ethers.getContractFactory("Vendor");
       vendor = await Vendor.deploy(yourToken.address);
 
@@ -70,7 +70,12 @@ describe("🚩 Challenge 2: 🏵 Token Vendor 🤖", function () {
         vendor.address,
         ethers.utils.parseEther("1000")
       );
+      let [ owner ] = await ethers.getSigners();
+      let balanceafterTransfer = await yourToken.balanceOf(owner.address);
+      console.log('\t'," ⚖️ Balance after transfer: ",ethers.utils.formatEther(balanceafterTransfer));
+
     });
+    
   }
 
   describe("💵 buyTokens()", function () {
