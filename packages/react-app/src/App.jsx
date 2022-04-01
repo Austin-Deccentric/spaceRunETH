@@ -50,7 +50,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -269,12 +269,12 @@ function App(props) {
   console.log("⏳ timeLeft:", timeLeft);
 
   // ** Listen for when the contract has been 'completed'
-  const complete = useContractReader(readContracts, "ExampleExternalContract", "completed");
+  const complete = useContractReader(readContracts, "withdrawContract", "completed");
   console.log("✅ complete:", complete);
 
   const exampleExternalContractBalance = useBalance(
     localProvider,
-    readContracts && readContracts.ExampleExternalContract ? readContracts.ExampleExternalContract.address : null,
+    readContracts && readContracts.withdrawContract ? readContracts.withdrawContract.address : null,
   );
   if (DEBUG) console.log("💵 exampleExternalContractBalance", exampleExternalContractBalance);
 
@@ -282,7 +282,7 @@ function App(props) {
   if (complete) {
     completeDisplay = (
       <div style={{ padding: 64, backgroundColor: "#eeffef", fontWeight: "bolder" }}>
-        🚀 🎖 👩‍🚀 - Staking App triggered `ExampleExternalContract` -- 🎉 🍾 🎊
+        🚀 🎖 👩‍🚀 - Staking App triggered `withdrawContract` -- 🎉 🍾 🎊
         <Balance balance={exampleExternalContractBalance} fontSize={64} /> ETH staked!
       </div>
     );
@@ -606,7 +606,7 @@ function App(props) {
               contractConfig={contractConfig}
             />
             <Contract
-              name="ExampleExternalContract"
+              name="withdrawContract"
               signer={userSigner}
               provider={localProvider}
               address={address}
