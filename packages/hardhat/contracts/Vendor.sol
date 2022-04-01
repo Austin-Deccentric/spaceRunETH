@@ -39,17 +39,18 @@ contract Vendor is Ownable {
   }
 
   // ToDo: create a sellTokens() function:
-  function sellTokens(uint256 amount) public {
-    require(_atadiaToken.balanceOf(msg.sender) >= amount, "You don not have enough Tokens.");
+  function sellTokens(uint256 tokenSellAmount) public {
+    require(_atadiaToken.balanceOf(msg.sender) >= tokenSellAmount, "You don not have enough Tokens.");
+    uint256 ethToSend = tokenSellAmount / tokensPerEth;
+    require(address(this).balance >= ethToSend, "ETH Reserves is low");
     
-    _atadiaToken.transferFrom(msg.sender, address(this), amount);
-    uint256 ethToSend = amount / tokensPerEth;
+    _atadiaToken.transferFrom(msg.sender, address(this), tokenSellAmount);
     
     // transfer to user
     (bool sent,) = msg.sender.call{value: ethToSend}("");
     require(sent, "Failed to send ETH");
 
-    emit SellTokens(msg.sender, ethToSend, amount);
+    emit SellTokens(msg.sender, ethToSend, tokenSellAmount);
   }
 
 }
