@@ -27,7 +27,7 @@ describe("🚩 Challenge 2: 🏵 Token Vendor 🤖", function () {
     // live contracts, token already deployed
   }else{
     it("Should deploy YourToken", async function () {
-      const YourToken = await ethers.getContractFactory("YourToken");
+      const YourToken = await ethers.getContractFactory("atadiaToken");
       yourToken = await YourToken.deploy();
     });
     describe("totalSupply()", function () {
@@ -57,11 +57,11 @@ describe("🚩 Challenge 2: 🏵 Token Vendor 🤖", function () {
       let tokenAddress = await vendor.yourToken();
       console.log('\t',"🏷 Token Address:",tokenAddress)
 
-      yourToken = await ethers.getContractAt("YourToken",tokenAddress);
+      yourToken = await ethers.getContractAt("atadiaToken",tokenAddress);
       console.log(`\t`,"🛰 Connected to YourToken at:",yourToken.address)
     });
   }else{
-    it("Should deploy YourToken", async function () {
+    it("Should deploy atadiaToken", async function () {
       const Vendor = await ethers.getContractFactory("Vendor");
       vendor = await Vendor.deploy(yourToken.address);
 

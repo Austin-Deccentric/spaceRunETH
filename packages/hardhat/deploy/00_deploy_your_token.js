@@ -7,14 +7,14 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  await deploy("YourToken", {
+  await deploy("atadiaToken", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
   });
 
-  const yourToken = await ethers.getContract("YourToken", deployer);
+  const yourToken = await ethers.getContract("atadiaToken", deployer);
 
   // Todo: transfer tokens to frontend address
   // const result = await yourToken.transfer("0x18fFE4dADcCe63A074Ef9cfe327cAb9AD4Ad9f76", ethers.utils.parseEther("1000") );
