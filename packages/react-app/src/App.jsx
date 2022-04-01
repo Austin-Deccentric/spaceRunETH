@@ -60,7 +60,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -260,15 +260,15 @@ function App(props) {
   const vendorETHBalance = useBalance(localProvider, vendorAddress);
   if (DEBUG) console.log("💵 vendorETHBalance", vendorETHBalance ? ethers.utils.formatEther(vendorETHBalance) : "...");
 
-  const vendorApproval = useContractReader(readContracts, "YourToken", "allowance", [
+  const vendorApproval = useContractReader(readContracts, "atadiaToken", "allowance", [
     address, vendorAddress
   ]);
   console.log("🤏 vendorApproval",vendorApproval)
 
-  const vendorTokenBalance = useContractReader(readContracts, "YourToken", "balanceOf", [vendorAddress]);
+  const vendorTokenBalance = useContractReader(readContracts, "atadiaToken", "balanceOf", [vendorAddress]);
   console.log("🏵 vendorTokenBalance:", vendorTokenBalance ? ethers.utils.formatEther(vendorTokenBalance) : "...");
 
-  const yourTokenBalance = useContractReader(readContracts, "YourToken", "balanceOf", [address]);
+  const yourTokenBalance = useContractReader(readContracts, "atadiaToken", "balanceOf", [address]);
   console.log("🏵 yourTokenBalance:", yourTokenBalance ? ethers.utils.formatEther(yourTokenBalance) : "...");
 
   const tokensPerEth = useContractReader(readContracts, "Vendor", "tokensPerEth");
@@ -485,6 +485,9 @@ function App(props) {
 
   const buyTokensEvents = useEventListener(readContracts, "Vendor", "BuyTokens", localProvider, 1);
   console.log("📟 buyTokensEvents:", buyTokensEvents);
+  
+  const sellTokensEvents = useEventListener(readContracts, "Vendor", "SellTokens", localProvider, 1);
+  console.log("📟 sellTokensEvents:", sellTokensEvents);
 
   const [tokenBuyAmount, setTokenBuyAmount] = useState({
     valid: false,
@@ -547,7 +550,7 @@ function App(props) {
               type={"primary"}
               onClick={() => {
                 tx(
-                  writeContracts.YourToken.transfer(tokenSendToAddress, ethers.utils.parseEther("" + tokenSendAmount)),
+                  writeContracts.atadiaToken.transfer(tokenSendToAddress, ethers.utils.parseEther("" + tokenSendAmount)),
                 );
               }}
             >
@@ -573,7 +576,7 @@ function App(props) {
               }}
               to="/"
             >
-              YourToken
+              atadiaToken
             </Link>
           </Menu.Item>
           <Menu.Item key="/contracts">
@@ -638,7 +641,7 @@ function App(props) {
           
             
             
-            {/*Extra UI for buying the tokens back from the user using "approve" and "sellTokens"
+            {/* Extra UI for buying the tokens back from the user using "approve" and "sellTokens" */}
 
             <Divider />
             <div style={{ padding: 8, marginTop: 32, width: 300, margin: "auto" }}>
@@ -715,7 +718,7 @@ function App(props) {
 
               </Card>
             </div>
-            */}
+           
             <div style={{ padding: 8, marginTop: 32 }}>
               <div>Vendor Token Balance:</div>
               <Balance balance={vendorTokenBalance} fontSize={64} />
@@ -738,6 +741,24 @@ function App(props) {
                       ETH to get
                       <Balance balance={item.args[2]} />
                       Tokens
+                    </List.Item>
+                  );
+                }}
+              />
+            </div>
+
+            <div style={{ width: 500, margin: "auto", marginTop: 64 }}>
+              <div>Sell Token Events:</div>
+              <List
+                dataSource={sellTokensEvents}
+                renderItem={item => {
+                  return (
+                    <List.Item key={item.blockNumber + item.blockHash}>
+                      <Address value={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> sold
+                      <Balance balance={item.args[2]} />
+                      ATA to get
+                      <Balance balance={item.args[1]} />
+                      ETH
                     </List.Item>
                   );
                 }}
@@ -770,7 +791,7 @@ function App(props) {
               contractConfig={contractConfig}
             />
             <Contract
-              name="YourToken"
+              name="atadiaToken"
               signer={userSigner}
               provider={localProvider}
               address={address}
